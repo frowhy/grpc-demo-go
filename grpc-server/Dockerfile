@@ -1,11 +1,13 @@
 FROM golang:latest
 
-WORKDIR $GOPATH/src/test
+WORKDIR /grpc-demo-go
 
-ADD . $GOPATH/src/test
+ADD . /grpc-demo-go
 
-RUN go build
+RUN export GO111MODULE=on \
+    && export GOPROXY=https://goproxy.io \
+    && go build
 
 EXPOSE 50051
 
-ENTRYPOINT  ["./test"]
+ENTRYPOINT  ["./grpc-demo-go"]
