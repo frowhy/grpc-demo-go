@@ -1,0 +1,18 @@
+version: '3'
+services:
+  grpc-server:
+    build:
+      context: ./
+      dockerfile: ./grpc-server/Dockerfile
+    image: frowhy/grpc-server
+    ports:
+      - "50051:50051"
+  envoy:
+    build:
+      context: ./
+      dockerfile: ./envoy/Dockerfile
+    image: grpcweb/envoy
+    ports:
+      - "8080:8080"
+    links:
+      - grpc-server
